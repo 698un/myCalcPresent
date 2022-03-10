@@ -7,21 +7,21 @@ class NetSystem{
 
     constructor(){
 
-        this.clientRep = new ClientRepository();
+        this.clientSet = new ClientSet();
         this.server = new VServer();
 
         }//constructor
 
     reposition(){
         this.server.reposition();
-        this.clientRep.reposition();
+        this.clientSet.reposition();
 
         }
 
     display(){
 
         this.server.display();
-        this.clientRep.display();
+        this.clientSet.display();
 
 
         }//display

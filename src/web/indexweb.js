@@ -9,8 +9,8 @@ let tMillis=0;
 let MW_delta = 0.01;
 let MW_press = false;
 
-let widthPrev=640;
-let heightPrev = 360;
+let widthPrev;//=width;//640;
+let heightPrev;// = height;//360;
 
 let firstDraw=true;
 let animatedEnabled=true;
@@ -24,6 +24,9 @@ function setup() {
     createCanvas(800,500,P2D);
     dspSetup();
     windowResized();
+
+    widthPrev =  width;
+    heightPrev = height;
     }//setup
 
 
@@ -37,8 +40,6 @@ function timeReCalc(){
 
 function draw() {
     timeReCalc();
-
-
 
     if (firstDraw==true) {
         dspSetup();

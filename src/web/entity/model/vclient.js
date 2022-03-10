@@ -11,13 +11,14 @@ class VClient{
         this.pos.x = 100;//*0+Math.random(300);
         this.pos.y = 200;//*0+Math.random(300);
 
-        this.w1 = 100;
-        this.h1 = 50;
+        this.w1 = 200;
+        this.h1 = 150;
 
         this.borderWidth = 5;
-        this.titleHeight = 15;
+        this.titleHeight = 20;
         this.titleWidth = this.w1-this.borderWidth*2;
         this.onClose = false;
+        this.active = false;//признак активного режима
 
         this.mouseMove=false;
 
@@ -29,7 +30,12 @@ class VClient{
         this.cmdStart.pos.y = this.borderWidth+this.titleHeight;
         this.cmdStart.pos.x = this.borderWidth;
         this.cmdStart.w1 = this.w1/2;
-        this.cmdStart.h1 = this.titleHeight;
+        this.cmdStart.h1 = this.cmdStart.textSize;
+
+        this.cmdStart.pos.x = this.w1/2-this.cmdStart.w1/2;
+        this.cmdStart.pos.y = this.h1/2-this.titleHeight/2;
+
+
 
         //UI_cmdExit
         this.cmdExit = new Cmd();
@@ -85,6 +91,13 @@ class VClient{
         rect(this.pos.x+this.borderWidth, this.pos.y+this.borderWidth,
              this.titleWidth,  this.titleHeight);
 
+        //drawFon
+
+        if (this.active==false) image(fonClientStart.fonCnv,
+                                      this.pos.x+ this.borderWidth,
+                                      this.pos.y+  this.borderWidth+this.titleHeight);
+
+
         //drawUI
         this.cmdStart.display();
         this.cmdExit.display();
@@ -133,7 +146,7 @@ class VClient{
     mouseInTitle(){
 
         if (mouseX<this.pos.x+this.borderWidth) return false;
-        if (mouseX>this.pos.x+this.w1-this.borderWidth) return false;
+        if (mouseX>this.pos.x+this.titleWidth) return false;
         if (mouseY<this.pos.y+this.borderWidth) return false;
         if (mouseY>this.pos.y+this.borderWidth+this.titleHeight) return false;
 

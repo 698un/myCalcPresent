@@ -1,6 +1,6 @@
 
 
-class ClientRepository{
+class ClientSet{
 
     constructor(){
         this.clientCount = 0;
@@ -23,6 +23,26 @@ class ClientRepository{
     addClient(){
         this.clientCount++;
         this.client[this.clientCount-1] = new VClient();
+
+
+        //verify oldPositoin
+
+        let equalsOther = false;
+        for (let i=0;i<this.clientCount-1;i++){
+
+            if (this.client[this.clientCount-1].pos.x==this.client[i].pos.x &&
+                this.client[this.clientCount-1].pos.y==this.client[i].pos.y) equalsOther=true;
+            }//next oldClient
+
+
+        if (equalsOther) {
+            this.clientCount--;
+            return;
+            }
+
+
+
+        console.log("newClient "+this.clientCount);
         }//addClient
 
 

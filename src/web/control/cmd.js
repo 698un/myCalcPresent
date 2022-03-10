@@ -17,7 +17,7 @@ class Cmd {
 
         this.bColor = color(127);//фон
         this.tColor = color(0);//текст
-        this.textSize = 10;
+        this.textSize = 20;
         this.caption = "caption";
         this.mPress = false;//признак что нажата
         this.tRelease = 0;//время отпускания
@@ -151,7 +151,7 @@ class Cmd {
         //если мышь нажата внутри региона (и mPress==false)
        if( this.inRegion()==true) {
                 this.mPress=true;
-                this.tRelease = millis()+250;
+                this.tRelease = tMillis+250;
                 return true;
                 }
 
