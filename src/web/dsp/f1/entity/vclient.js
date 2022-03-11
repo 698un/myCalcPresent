@@ -3,24 +3,26 @@
 
 
 
-class VClient{
+class VClient extends ParentWin{
 
     constructor(){
 
-        this.pos = createVector(width/2,0);
+        super();
+        //this.pos = createVector(width/2,0);
         this.pos.x = 100;//*0+Math.random(300);
         this.pos.y = 200;//*0+Math.random(300);
 
         this.w1 = 200;
         this.h1 = 150;
 
-        this.borderWidth = 5;
+        this.borderWidth = 3;
         this.titleHeight = 20;
         this.titleWidth = this.w1-this.borderWidth*2;
         this.onClose = false;
         this.active = false;//признак активного режима
+        this.tSize = 15;
 
-        this.mouseMove=false;
+       // this.mouseMove=false;
 
 
         //UI_CMDStart
@@ -49,8 +51,10 @@ class VClient{
 
         //rewidthTitle
         this.titleWidth = this.w1-this.borderWidth*2-this.cmdExit.w1;
+        this.clientKey = "none";
+        this.ip = createIP();
 
-
+        this.requestProcess = false;
 
 
 
@@ -72,15 +76,24 @@ class VClient{
         return this.pos.y;
         }
 
+    update(){
+
+        //if (this.requestProcess==true)
+
+
+         }
+
+
+
+
+
+
     //METHOD_OF_SHOW
     display(){
 
-        //if mouse not pressed then cancelled move
-        if (MW_press==false) {
-            this.mouseMove = false;
-            }
-
+        textSize(this.tSize);
         fill(192,192,192);
+        noStroke();
 
         rect(this.pos.x,this.pos.y,
              this.w1,this.h1);
@@ -90,6 +103,21 @@ class VClient{
         fill(0,0,255);
         rect(this.pos.x+this.borderWidth, this.pos.y+this.borderWidth,
              this.titleWidth,  this.titleHeight);
+
+        //show wait process
+        if (this.requestProcess) {
+            let xe = (tMillis*0.1) % this.titleWidth;
+            stroke(255);
+            line(this.pos.x + this.borderWidth + xe,
+                this.pos.y + this.borderWidth,
+                this.pos.x + this.borderWidth + xe,
+                this.pos.y + this.borderWidth + this.titleHeight);
+
+            fill(255,255,0);noStroke();
+            text("wait response",this.pos.x + this.borderWidth + this.titleWidth/2,this.pos.y + this.borderWidth + this.titleHeight/2);
+            }//if requestProcess
+
+
 
         //drawFon
 
@@ -102,59 +130,36 @@ class VClient{
         this.cmdStart.display();
         this.cmdExit.display();
 
+
+        //if press START
+        if (this.cmdStart.eventMouseDown()) {
+            this.active=true;//mark as process
+            send_clientKey(this);
+            }
+
         //if press exit
         if (this.cmdExit.eventMouseDown()) {
             this.onClose = true;
             console.log("close");
             }
-
         //console.log(this.pos.x+" / "+this.pos.y);
 
-
-        //Move the Client
-        if (MW_press==true && this.mouseMove) {
-
-            this.pos.x+=mouseX-pmouseX;
-            this.pos.y+=mouseY-pmouseY;
-
-            //this.oldMouseX = mouseX;
-            //this.oldMouseY = mouseY;
-            }
-
-        //Press to Title
-        if (MW_press==true && this.mouseInTitle() && this.mouseMove==false) {
-
-            //this.oldMouseX = mouseX;
-            //this.oldMouseY = mouseY;
-            this.mouseMove = true;
-            console.log("clickToTitle");
-            }
+     }//display
 
 
 
+    //==============================REQUEST_  CREATE
 
+    requestClientKeyCreate(){
+        let req1=new VRequest();
+        req1.ip = this.ip;
+        req1.httpType = "GET";
+        req1.url = "/clientkey";
+        req1.pos.x = this.pos.x+this.w1/2;
+        req1.pos.y = this.pos.y+this.h1/2;
 
-    }//display
-
-
-
-
-
-
-
-
-    mouseInTitle(){
-
-        if (mouseX<this.pos.x+this.borderWidth) return false;
-        if (mouseX>this.pos.x+this.titleWidth) return false;
-        if (mouseY<this.pos.y+this.borderWidth) return false;
-        if (mouseY>this.pos.y+this.borderWidth+this.titleHeight) return false;
-
-        //console.log(true);
-
-        return true;
-        }//mouseInTitle
-
+        return req1;
+        }
 
 
 

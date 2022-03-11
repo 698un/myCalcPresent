@@ -21,7 +21,7 @@ class FonClientStart {
 
         for (let i = 0; i < this.lCount; i++) {
             this.ty[i] = Math.random() * this.fonCnv.height
-             }//next i
+            }//next i
 
 
     }//constructor

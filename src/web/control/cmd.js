@@ -149,7 +149,7 @@ class Cmd {
 
 
         //если мышь нажата внутри региона (и mPress==false)
-       if( this.inRegion()==true) {
+       if( this.inRegion()==true && MW_prevPress==false) {
                 this.mPress=true;
                 this.tRelease = tMillis+250;
                 return true;

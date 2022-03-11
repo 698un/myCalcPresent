@@ -8,6 +8,7 @@ let tMillis=0;
 //значение поворота колеса мышы
 let MW_delta = 0.01;
 let MW_press = false;
+let MW_prevPress = false;
 
 let widthPrev;//=width;//640;
 let heightPrev;// = height;//360;
@@ -20,7 +21,13 @@ let displayName = "f1";
 
 
 
+
+
 function setup() {
+
+
+
+
     createCanvas(800,500,P2D);
     dspSetup();
     windowResized();
@@ -63,7 +70,8 @@ function draw() {
 
     MW_delta = 0;//reset to sero mouseWheelValue after cicle of draw
     //MW_press = false;
-
+    MW_prevPress=MW_press;
+    //console.log( document.getElementById("pt1").innerText.length);
     }//draw
 
 
@@ -84,10 +92,15 @@ function windowResized() {
 
 function mouseWheel(event){
     MW_delta = event.deltaY;
+
+
     }
 
 function mousePressed(event){
     MW_press = true;
+    //alert(getRandomHash(10));
+
+    //let s = createIP();
     }
 
 function mouseReleased(event){
@@ -110,5 +123,9 @@ function dspReDraw(){
     if (displayName=="antia") drawDspAntia();
     }//dspReDraw
 
-
-
+/*
+let programText;
+function preload(){
+    programText = loadStrings('program_text.txt');
+    }
+*/
