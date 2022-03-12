@@ -9,13 +9,24 @@ class VServer extends ParentWin{
         this.pos.x = width/2-this.w1/2;
         this.pos.y = height/2-this.h1/2;
 
+        //консоль для отображения событий
+        this.console = new CompConsole();
+
+
         this.reposition();
 
         this.borderWidth = 5;
         this.titleHeight = 20;
         this.titleWidth = this.w1-this.borderWidth*2;
         this.ip = "serverIP";
+
+        //репозиторий ключей
+        this.clientRepository = new ClientRepository();
+
+
+
         }
+
 
 
     reposition(){
@@ -29,9 +40,14 @@ class VServer extends ParentWin{
 
     update(){
 
+        this.requestListener();
+
+        }//update
+
+
+    requestListener(){
         let rX=0;
         let rY=0;
-
         //defined input requests
         for (let i=0;i<netSystem.requestSet.requestCount;i++){
 
@@ -42,10 +58,11 @@ class VServer extends ParentWin{
             rX = netSystem.requestSet.request[i].pos.x;
             rY = netSystem.requestSet.request[i].pos.y;
 
-            if (this.coordsInRegion(rX,rY)) netSystem.requestSet.request[i].live = false;
+            //если запрос дошел до сервера
+            if (this.coordsInRegion(rX,rY)) mappingRequestByIndex(i);
             }//next request
 
-            }
+        }//requestListener
 
 
 
@@ -76,14 +93,24 @@ class VServer extends ParentWin{
              this.pos.y+this.borderWidth+this.titleHeight/2);
 
 
+        text("clientCount="+this.clientRepository.clientCount,
+            this.pos.x+this.borderWidth*2,
+            this.pos.y+this.borderWidth*2+this.titleHeight);
+
+
+
+
         //console.log(this.pos.x+" / "+this.pos.y);
 
         }//display
 
 
 
-
 }//class VServer
+
+
+
+
 
 
 function getRandomHash(len) {

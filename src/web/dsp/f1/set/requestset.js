@@ -12,16 +12,16 @@ class RequestSet{
 
     addRequest(sender,newRequest){
 
-
+        //поиск отправителя в множестве клиентов
         let senderIndex = 0;
-        for(let i=0;i<netSystem.clientSet.clientCount;i++){
-            if (sender.ip==netSystem.clientSet.client[i].ip) senderIndex = i;
+        for(let i=0;i<netSystem.computerSet.computerCount;i++){
+            if (sender.ip==netSystem.computerSet.computer[i].ip) senderIndex = i;
             }//next i
 
-        if (netSystem.clientSet.client[senderIndex].requestProcess==true) return;
+        if (netSystem.computerSet.computer[senderIndex].requestProcess==true) return;
 
         //mark sender as waiting of response
-        netSystem.clientSet.client[senderIndex].requestProcess = true;
+        netSystem.computerSet.computer[senderIndex].requestProcess = true;
 
         this.requestCount++;
         this.request[this.requestCount-1] = newRequest;
@@ -46,6 +46,31 @@ class RequestSet{
         for (let i=0;i<this.requestCount;i++) this.request[i].display();
 
         }//delay
+
+    getResponseByIP(ipString){
+
+        for (let i=0;i<this.requestCount;i++){
+            if (this.request[i].senderIP==ipString &&
+                this.request[i].direction=="response") return this.request[i];
+            }//next i
+        return null;
+
+        }//getRequestByIP
+
+    //this method deleting request from netSystem
+    deleteRequestByIP(ipString){
+
+
+        //search request
+        for (let i=0;i<this.requestCount;i++){
+            if (this.request[i].senderIP==ipString) this.request[i].live = false;
+            }//next i
+
+
+
+
+
+        }//deleteRequestByIP
 
 
 

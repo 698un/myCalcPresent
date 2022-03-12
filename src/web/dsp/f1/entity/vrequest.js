@@ -15,20 +15,23 @@ class VRequest{
         this.direction = "request";//   "response"
         this.live = true;
         this.tSize = 15;//размер текста
+        this.responseString="";
         }//constructor
 
 
     update(){
 
 
-        let targetObject = netSystem.clientSet.getByIP(this.senderIP);
-        if (this.direction=="request") {targetObject =netSystem.clientSet.getByIP("serverIP"); }
+        let targetObject = netSystem.computerSet.getByIP(this.senderIP);
+        //delete request if client shotdown
+        if (targetObject==null) this.live = false;
 
-        if (targetObject==null) {
-            this.live = false;
-            alert("failed REQUEST!!!");
-            return;
-            }
+
+        if (this.direction=="request") {targetObject =netSystem.computerSet.getByIP("serverIP"); }
+
+        //Удаляем если адресат отключился
+        if (targetObject==null) this.live = false;
+
 
          this.target.x = targetObject.pos.x+targetObject.w1/2;
          this.target.y = targetObject.pos.y+targetObject.h1/2;
@@ -43,23 +46,34 @@ class VRequest{
         //move the request
         this.pos.x = this.pos.x+this.v.x*dt;
         this.pos.y = this.pos.y+this.v.y*dt;
-
         }//update
 
 
     display(){
 
-        fill(255,255,0);
         //ellipse(this.pos.x,this.pos.y,10,10);
         textSize(this.tSize);
 
-        text(this.httpType,
-             this.pos.x,this.pos.y-this.tSize);
-        text(this.url,
-             this.pos.x,this.pos.y);
-        text(this.body,
-             this.pos.x,this.pos.y+this.tSize);
+        if (this.direction == "request") {
+            fill(255,255,0);
+            text(this.httpType,
+                 this.pos.x,this.pos.y-this.tSize);
+            text(this.url,
+                 this.pos.x,this.pos.y);
+            text(this.body,
+                 this.pos.x,this.pos.y+this.tSize);
+                 return;
+                 }//if direction = request
 
+
+        if (this.direction == "response") {
+
+                    //console.log("back_response:"+this.responseString);
+                    fill(255,255,255);
+                    text(this.responseString,
+                         this.pos.x,this.pos.y);
+
+                         }//if direction = response
 
 
 
@@ -84,6 +98,6 @@ function createIP(){
     res+=Math.floor(Math.random()*255);
 
     //alert(res);
-    console.log("createIP: "+res);
+    //console.log("createIP: "+res);
     return res;
     }//createIP

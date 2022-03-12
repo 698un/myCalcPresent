@@ -6,32 +6,24 @@ class NetSystem{
 
 
     constructor(){
-
-        this.clientSet = new ClientSet();
+        this.computerSet = new ComputerSet();
         this.requestSet = new RequestSet();
-
         }//constructor
 
     reposition(){
-
-        this.clientSet.reposition();
-
+        this.computerSet.reposition();
         }
 
      update(){
         this.requestSet.update();
-        this.clientSet.update();
+        this.computerSet.update();
         }
 
     display(){
-
         //показать запросы
         this.requestSet.display();
-
         //показать клиентов (и сервер)
-        this.clientSet.display();
-
-
+        this.computerSet.display();
         }//display
 
 

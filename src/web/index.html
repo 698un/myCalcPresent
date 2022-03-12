@@ -10,24 +10,35 @@
 
     <!-- Згрузка библиотеки и главного модуля приложения -->
     <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="config.js"></script>
     <script language="javascript" type="text/javascript" src="indexweb.js"></script>
 
     <!-- Згрузка UI -->
     <script language="javascript" type="text/javascript" src="control/cmd.js"></script>
     <script language="javascript" type="text/javascript" src="control/parentwin.js"></script>
+    <script language="javascript" type="text/javascript" src="control/region.js"></script>
+    <script language="javascript" type="text/javascript" src="control/parentregion.js"></script>
 
 
 
     <!-- Згрузка сцены F1 -->
     <script language="javascript" type="text/javascript" src="dsp/f1/fon_f1.js"></script>
-    <script language="javascript" type="text/javascript" src="dsp/f1/fon_client_f1.js"></script>
     <script language="javascript" type="text/javascript" src="dsp/f1/entity/vrequest.js"></script>
-    <script language="javascript" type="text/javascript" src="dsp/f1/entity/vclient.js"></script>
-    <script language="javascript" type="text/javascript" src="dsp/f1/netdata/clientnet.js"></script>
-    <script language="javascript" type="text/javascript" src="dsp/f1/entity/vserver.js"></script>
+    <script language="javascript" type="text/javascript" src="dsp/f1/entity/compconsole.js"></script>
+
+        <!--классы сервера-->
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/server/vserver.js"></script>
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/server/servermapping.js"></script>
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/server/servercore.js"></script>
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/server/clientrep.js"></script>
+
+        <!--классы клиента  -->
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/client/vclient.js"></script>
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/client/clientnet.js"></script>
+        <script language="javascript" type="text/javascript" src="dsp/f1/entity/client/fon_client_f1.js"></script>
 
         <!-- Згрузка всех репозиториевсущностей -->
-        <script language="javascript" type="text/javascript" src="dsp/f1/set/vclientset.js"></script>
+        <script language="javascript" type="text/javascript" src="dsp/f1/set/vcomputerset.js"></script>
         <script language="javascript" type="text/javascript" src="dsp/f1/set/netsystem.js"></script>
         <script language="javascript" type="text/javascript" src="dsp/f1/set/requestset.js"></script>
 

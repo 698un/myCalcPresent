@@ -70,8 +70,8 @@ class Cmd {
         this.eventMouseDown();//проверяем нажание мышки
 
 
-        var tMillis = millis();//запоминаем millis
-        var dt = tMillis-this.prevTime;
+        //var tMillis = millis();//запоминаем millis
+        //var dt = tMillis-this.prevTime;
         this.prevTime = tMillis;
 
 

@@ -11,14 +11,14 @@ let netSystem;// = new NetSystem();
 let fonClientStart=null;
 let cmdClientAdd=null;
 let fonF1;
-
+//computer
 
 function setupDspF1(){
     netSystem = new NetSystem();
-    netSystem.clientSet.addClient();
+    netSystem.computerSet.addComputer();
 
-    let fonW = netSystem.clientSet.client[1].w1-netSystem.clientSet.client[1].borderWidth*2;
-    let fonH = netSystem.clientSet.client[1].h1-netSystem.clientSet.client[1].borderWidth*2-netSystem.clientSet.client[1].titleHeight;
+    let fonW = netSystem.computerSet.computer[1].w1-netSystem.computerSet.computer[1].borderWidth*2;
+    let fonH = netSystem.computerSet.computer[1].h1-netSystem.computerSet.computer[1].borderWidth*2-netSystem.computerSet.computer[1].titleHeight;
 
     fonClientStart = new FonClientStart(fonW,fonH);
 
@@ -59,6 +59,6 @@ function drawDspF1(){
 
     cmdClientAdd.display();
 
-    if (cmdClientAdd.eventMouseDown()) netSystem.clientSet.addClient();
+    if (cmdClientAdd.eventMouseDown()) netSystem.computerSet.addComputer();
 
     }//drawDspF1

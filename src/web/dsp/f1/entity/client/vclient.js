@@ -3,7 +3,7 @@
 
 
 
-class VClient extends ParentWin{
+class VComputer extends ParentWin{
 
     constructor(){
 
@@ -78,13 +78,52 @@ class VClient extends ParentWin{
 
     update(){
 
-        //if (this.requestProcess==true)
+        //Listen response from server
+        this.responseListener();
 
 
-         }
+        }
 
 
 
+    responseListener(){
+
+        //exit if request not sending
+        if (this.requestProcess==false) return;
+
+        //console.log("wait");
+
+
+        let myRequest=netSystem.requestSet.getResponseByIP(this.ip);
+
+
+        //exit if not found
+        if (myRequest==null) return;
+
+
+        //console.log("response is exist");
+
+
+        //verify position
+        let px = myRequest.pos.x;
+        let py = myRequest.pos.y;
+        if (this.coordsInRegion(px,py)==false) return;
+
+
+        console.log("response back to client");
+
+        //ACTION IF FOUND RESPONSE
+        if (myRequest.url =="/clientkey") {
+            this.clientKey = JSON.parse(myRequest.responseString).clientkey;
+            console.log("getClientKey_toClient:"+this.clientKey);
+            }
+
+        //delete this request from netSystem;
+        netSystem.requestSet.deleteRequestByIP(this.ip);
+        this.requestProcess=false;
+
+
+        }//
 
 
 
@@ -131,17 +170,22 @@ class VClient extends ParentWin{
         this.cmdExit.display();
 
 
-        //if press START
+        //if click START
         if (this.cmdStart.eventMouseDown()) {
             this.active=true;//mark as process
             send_clientKey(this);
             }
 
-        //if press exit
+        //if click exit
         if (this.cmdExit.eventMouseDown()) {
             this.onClose = true;
             console.log("close");
             }
+
+        //if ()
+
+
+
         //console.log(this.pos.x+" / "+this.pos.y);
 
      }//display

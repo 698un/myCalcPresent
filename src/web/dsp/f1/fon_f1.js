@@ -86,7 +86,7 @@ class FonF1 {
         let str = programText[lineNum];
         let len =  str.length;
         let xe;
-        let tw = 0.3+0.5*(sq((ye-height/2)/height)+0.5);
+        let tw = 0.1+0.7*(sq((ye-height/2)/height)+0.5);
         let colR = 0;
         let colB = 0;
 
