@@ -21,10 +21,12 @@ let oldScene="none";
 
 let menu;
 
+//noSmooth();
+
 function setup() {
 
 
-    noSmooth();
+   // noSmooth();
 
     createCanvas(800,500,P2D);
 	menu=new VMenu();//главное меню
@@ -81,7 +83,7 @@ function draw() {
 
 function windowResized() {
 
-    resizeCanvas(windowWidth,windowHeight)
+    resizeCanvas(windowWidth,windowHeight);
     menu.rePosition();
 	
     if (currentScene=="gameplay") rePositionF1();
@@ -109,7 +111,7 @@ function mousePressed(event){
 function mouseReleased(event){
 
     MW_press = false;
-    console.log("mouseRelease");
+   // console.log("mouseRelease");
     }
 
 

@@ -29,6 +29,8 @@ class VStatus extends ParentRegion{
         }//constructor
 
 
+
+
     //defined Real coordinates with parent
     getRealPosX(){
         if (this.parent!=null) return this.pos.x+this.parent.getRealPosX();
@@ -63,12 +65,33 @@ class VStatus extends ParentRegion{
         fill(this.textColor);
         textSize(this.tSize);
         textAlign(LEFT,CENTER);
-        text(this.titleBeforeValue+value+this.titleAfterValue,
-             this.pos.x,this.pos.y+this.h1/2);
+        text(this.titleBeforeValue+this.value+this.titleAfterValue,
+             this.realPos.x,this.realPos.y+this.h1/2);
 
 
         }//display
 
+
+    eventChangeValue(){
+
+        if (this.controlEnabled==false) return false;
+
+        if (MW_press==false) return false;
+
+        //remember old value
+        let oldValue = this.value;
+
+        if (this.pointInRegion(mouseX,mouseY)==false) return false;
+
+        let newValue =this.min+ (mouseX-this.pos.x)/this.w1*(this.max-this.min);
+        newValue = Math.round(newValue);
+
+        if (newValue==oldValue) return false;
+
+        this.value = newValue;
+        return true;
+
+        }//eventMouseDown
 
 
 }//class VStatus
