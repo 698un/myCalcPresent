@@ -96,10 +96,6 @@ class ComputerSet{
 
 
 
-
-
-
-
     getByIP(ipStr){
 
         for (let i=0;i<this.computerCount;i++){
@@ -109,6 +105,7 @@ class ComputerSet{
         return null;
         }//getPosByIP
 
+	
 
 
     mouseControl(){

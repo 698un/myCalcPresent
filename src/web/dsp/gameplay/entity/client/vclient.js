@@ -15,8 +15,8 @@ class VComputer extends ParentWin{
         this.w1 = 200;
         this.h1 = 150;
 
-        this.borderWidth = 3;
-        this.titleHeight = 20;
+        this.borderWidth = globalBorderWidth;
+        this.titleHeight = globalTextSize;
         this.titleWidth = this.w1-this.borderWidth*2;
         this.onClose = false;
         this.active = false;//признак активного режима
@@ -53,10 +53,9 @@ class VComputer extends ParentWin{
         this.titleWidth = this.w1-this.borderWidth*2-this.cmdExit.w1;
         this.clientKey = "none";
         this.ip = createIP();
-
+		
+		//признак что происходит запрос
         this.requestProcess = false;
-
-
 
         }//constructor
 
@@ -147,10 +146,11 @@ class VComputer extends ParentWin{
         if (this.requestProcess) {
             let xe = (tMillis*0.1) % this.titleWidth;
             stroke(255);
+			strokeWeight(this.borderWidth);
             line(this.pos.x + this.borderWidth + xe,
-                this.pos.y + this.borderWidth,
-                this.pos.x + this.borderWidth + xe,
-                this.pos.y + this.borderWidth + this.titleHeight);
+                 this.pos.y + this.borderWidth,
+                 this.pos.x + this.borderWidth + xe,
+                 this.pos.y + this.borderWidth + this.titleHeight);
 
             fill(255,255,0);noStroke();
             text("wait response",this.pos.x + this.borderWidth + this.titleWidth/2,this.pos.y + this.borderWidth + this.titleHeight/2);

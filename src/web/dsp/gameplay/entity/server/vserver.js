@@ -9,20 +9,25 @@ class VServer extends ParentWin{
         this.pos.x = width/2-this.w1/2;
         this.pos.y = height/2-this.h1/2;
 
-        //консоль для отображения событий
-        this.console = new CompConsole();
-
-
         this.reposition();
 
-        this.borderWidth = 5;
+        this.borderWidth = globalBorderWidth;
         this.titleHeight = 20;
         this.titleWidth = this.w1-this.borderWidth*2;
-        this.ip = "serverIP";
+        this.ip = serverIP;
 
         //репозиторий ключей
         this.clientRepository = new ClientRepository();
 
+
+        //консоль для отображения событий
+        this.console = new CompConsole(this);
+		
+		this.console.pos.x=this.borderWidth;
+		this.console.pos.y=this.h1-this.console.h1-this.borderWidth;
+		this.console.h1=100;
+		
+		this.console.addLog("start");
 
 
         }
@@ -41,7 +46,7 @@ class VServer extends ParentWin{
     update(){
 
         this.requestListener();
-
+		this.clientRepository.clearOldClients();
         }//update
 
 
@@ -97,7 +102,7 @@ class VServer extends ParentWin{
             this.pos.x+this.borderWidth*2,
             this.pos.y+this.borderWidth*2+this.titleHeight);
 
-
+		this.console.display();
 
 
         //console.log(this.pos.x+" / "+this.pos.y);

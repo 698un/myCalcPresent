@@ -22,8 +22,9 @@ class VStatus extends ParentRegion{
         this.min = 0;
         this.max = 255;
         this.value = (this.min+this.max)*0.5;
-
         this.parent = null;
+
+        this.controlEnabled = false;//разрешение изменения значения
 
         }//constructor
 

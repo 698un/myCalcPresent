@@ -17,7 +17,7 @@ class Cmd {
 
         this.bColor = color(127);//фон
         this.tColor = color(0);//текст
-        this.textSize = 20;
+        this.textSize = globalTextSize;//20;
         this.caption = "caption";
         this.mPress = false;//признак что нажата
         this.tRelease = 0;//время отпускания

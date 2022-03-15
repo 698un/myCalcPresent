@@ -4,18 +4,17 @@ class FonF1 {
 
     constructor(){
 
-        this.tSize=  20;
+        this.tSize=  globalTextSize*1.25;//20;
 
         this.cnvFon = createGraphics(640,480);
         this.cnvFon.textSize(this.tSize);
         this.cnvFon.background(0);
+		this.cnvFon.textAlign(CENTER,CENTER);
         createProgramText();
 
         this.lineIndex =0;
         this.textYe = 0;
         this.startLine = 0;
-
-
 
         }//constructor
 
@@ -68,8 +67,8 @@ class FonF1 {
             ye = i*th;
 
 
-            alpha = 1-sq((ye-height/2)/height*2.0);
-            this.cnvFon.fill(255*alpha,255*alpha,0);//,alpha*255);
+            //alpha = 1-sq((ye-height/2)/height*2.0);
+            //this.cnvFon.fill(255*alpha,255*alpha,0);//,alpha*255);
 
 
             //this.cnvFon.text(programText[lineNum],10,ye-this.textYe);
@@ -86,14 +85,17 @@ class FonF1 {
         let str = programText[lineNum];
         let len =  str.length;
         let xe;
+		
+		//define textWidth by vertical
         let tw = 0.1+0.7*(sq((ye-height/2)/height)+0.5);
         let colR = 0;
         let colB = 0;
 
+		//defined velocity of  light in line
         let v =(sin(lineNum*553434)+1+0.2)*10;
         if (v<5) v=5;
 
-        let lightSymbolIndex= (80*sin(lineNum*2323)+tNow*v)%100;
+        let lightSymbolIndex= (80*sin(lineNum*2323)+tMillis*0.001*v)%100;
 
 
         for (let i=0;i<len;i++){
@@ -105,12 +107,10 @@ class FonF1 {
             colB = 127;
             if (colR>220) colB = 255;
 
+			//this.cnvFon.textSize(this.tSize+5*(colR-0)/255);
+
             this.cnvFon.fill(255,colR,127);
 
-
-
-            //if (i>lightSymbolIndex) this.cnvFon.fill(255,255,0);
-            //if (i>lightSymbolIndex+3) this.cnvFon.fill(255,127,0);
 
             this.cnvFon.text(str[i],xe,ye);
             }//next xe

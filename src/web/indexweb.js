@@ -16,20 +16,18 @@ let heightPrev;// = height;//360;
 let firstDraw=true;
 let animatedEnabled=true;
 
-let displayName = "f1";
+let currentScene = "gameplay";
+let oldScene="none";
 
-
-
-
-
-
+let menu;
 
 function setup() {
 
 
-
+    noSmooth();
 
     createCanvas(800,500,P2D);
+	menu=new VMenu();//главное меню
     dspSetup();
     windowResized();
 
@@ -54,10 +52,14 @@ function draw() {
         firstDraw = false;
         }
 
-
+	
     dspReDraw();
 
-
+	//work with menu
+	menu.display();
+	let menuEvent=menu.mouseEvent();
+	if (menuEvent=="gameplay") currentScene="gameplay";
+    if (menuEvent=="antia")    currentScene="antia";
 
 
 
@@ -70,7 +72,6 @@ function draw() {
 
 
     MW_delta = 0;//reset to sero mouseWheelValue after cicle of draw
-    //MW_press = false;
     MW_prevPress=MW_press;
     //console.log( document.getElementById("pt1").innerText.length);
     }//draw
@@ -81,9 +82,10 @@ function draw() {
 function windowResized() {
 
     resizeCanvas(windowWidth,windowHeight)
-
-    if (displayName=="f1") repositionF1();
-
+    menu.rePosition();
+	
+    if (currentScene=="gameplay") rePositionF1();
+    if (currentScene=="antia")    rePositionAntia();
 
     }//windowResized
 
@@ -112,21 +114,22 @@ function mouseReleased(event){
 
 
 function dspSetup(){
-    if (displayName=="f1") setupDspF1();
-    if (displayName=="antia") setupDspAntia();
+    if (currentScene=="gameplay") setupDspF1();
+    if (currentScene=="antia") setupDspAntia();
     firstDraw = true;
     }//dspReSetup
 
 
 
 function dspReDraw(){
-    if (displayName=="f1") drawDspF1();
-    if (displayName=="antia") drawDspAntia();
+
+    if (oldScene!=currentScene) {
+        oldScene = currentScene;
+        dspSetup();
+        }
+
+
+    if (currentScene=="gameplay") drawDspF1();
+    if (currentScene=="antia") drawDspAntia();
     }//dspReDraw
 
-/*
-let programText;
-function preload(){
-    programText = loadStrings('program_text.txt');
-    }
-*/

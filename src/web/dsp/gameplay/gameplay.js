@@ -4,16 +4,18 @@
 
 
 
-
+//let gameplay_init = false;
 
 let netSystem;// = new NetSystem();
 
 let fonClientStart=null;
 let cmdClientAdd=null;
-let fonF1;
+let fonF1=1;
 //computer
 
 function setupDspF1(){
+
+
     netSystem = new NetSystem();
     netSystem.computerSet.addComputer();
 
@@ -33,10 +35,10 @@ function setupDspF1(){
 
 
 
-
+  //  gameplay_init = true;
     }//setupDspF1
 
-function repositionF1(){
+function rePositionF1(){
     netSystem.reposition();
     cmdClientAdd.pos.y = height-cmdClientAdd.h1;
 

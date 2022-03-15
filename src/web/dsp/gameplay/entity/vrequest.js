@@ -21,13 +21,13 @@ class VRequest{
 
     update(){
 
-
+		//define senderObject
         let targetObject = netSystem.computerSet.getByIP(this.senderIP);
         //delete request if client shotdown
         if (targetObject==null) this.live = false;
 
-
-        if (this.direction=="request") {targetObject =netSystem.computerSet.getByIP("serverIP"); }
+		//если направление это ЗАПРОС (а не ОТВЕТ)
+        if (this.direction=="request") {targetObject =netSystem.computerSet.getByIP(serverIP); }
 
         //Удаляем если адресат отключился
         if (targetObject==null) this.live = false;
