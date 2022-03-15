@@ -6,9 +6,10 @@ class ParentWin{
         this.pos = createVector(0,0);
         this.w1 = 100;
         this.h1 = 100;
-        this.borderWidth = 3;
+        this.borderWidth = 3;;
         this.titleHeight = 20;
         this.titleWidth = 80;
+        this.title = "TITLE";
 
         }
 
@@ -38,6 +39,10 @@ class ParentWin{
         if (y>this.pos.y+this.h1) return false;
         return true;
         }
+
+
+
+
 
 
      }//class ParentWin

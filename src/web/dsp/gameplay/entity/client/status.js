@@ -19,6 +19,9 @@ class ClientPanel{
         this.infoClient.titleAfterValue = "";
 
 
+
+
+
         //INFO FOR IMAGE_PROGRESS
         this.infoImage = new VStatus(parentObject);
         this.infoImage.parent = parentObject;
@@ -38,11 +41,9 @@ class ClientPanel{
         this.infoVideo.w1 = this.infoClient.w1;
         this.infoVideo.titleBeforeValue = "video: ";
         this.infoVideo.titleAfterValue = "%";
+        this.infoVideo.value = 0;
 
-
-
-
-    }//constructor
+        }//constructor
 
 
 

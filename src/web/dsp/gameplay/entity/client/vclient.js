@@ -13,7 +13,7 @@ class VComputer extends ParentWin{
         this.pos.y = 200;//*0+Math.random(300);
 
         this.w1 = 200;
-        this.h1 = 200;
+        this.h1 = 300;
 
         this.borderWidth = globalBorderWidth;
         this.titleHeight = globalTextSize;
@@ -58,6 +58,17 @@ class VComputer extends ParentWin{
         this.requestProcess = false;
 
         this.vPanel = new ClientPanel(this);
+        this.calcStatus=-1;//Признак что расчет не начат   0,1,2,3
+
+        //display for calcProcess
+       // this.calcProcess = new VStatus();
+
+        //CONSOLE
+        this.console = new CompConsole(this);
+        this.console.pos.y = this.h1-this.console.h1-globalBorderWidth;
+        this.console.pos.x =globalBorderWidth;
+
+
 
         }//constructor
 
@@ -75,14 +86,6 @@ class VComputer extends ParentWin{
         }
     getRealPosY(){
         return this.pos.y;
-        }
-
-    update(){
-
-        //Listen response from server
-        this.responseListener();
-
-
         }
 
 
@@ -115,6 +118,8 @@ class VComputer extends ParentWin{
             console.log("getClientKey_toClient:"+this.clientKey);
             this.active = true;
             this.cmdStart.visible = false;
+            this.console.addLog("ClientKey received");
+            this.calcStatus = 0;//mark as free for new task
             }
 
         //ANYTIME delete this request from netSystem;!!!
@@ -165,6 +170,7 @@ class VComputer extends ParentWin{
 
         //draw Process
         if (this.active==true) this.vPanel.display();
+        if (this.active==true)this.console.display();
 
 
 
@@ -177,6 +183,8 @@ class VComputer extends ParentWin{
         if (this.cmdStart.eventMouseDown()) {
             //this.active=true;//mark as process
             send_clientKey(this);
+            this.console.addLog("Reguest for ClientKey...");
+            //this.calcStatus = 0;
             }
 
         //if click exit
@@ -185,28 +193,29 @@ class VComputer extends ParentWin{
             console.log("close");
             }
 
-        //if ()
 
-
-
-        //console.log(this.pos.x+" / "+this.pos.y);
 
      }//display
 
+    update(){
+        //Listen response from server
+        this.responseListener();
+
+        if (this.calcStatus ==-1) return;
 
 
-    //==============================REQUEST_  CREATE
 
-    requestClientKeyCreate(){
-        let req1=new VRequest();
-        req1.ip = this.ip;
-        req1.httpType = "GET";
-        req1.url = "/clientkey";
-        req1.pos.x = this.pos.x+this.w1/2;
-        req1.pos.y = this.pos.y+this.h1/2;
 
-        return req1;
+        //if free for task
+        if (this.calcStatus==0) {
+            this.calcStatus=1;
+            send_getNewTask(this);
+            console.log(this.calcStatus);
+            }
+
+
         }
+
 
 
 
