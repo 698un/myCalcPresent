@@ -13,7 +13,7 @@ class VComputer extends ParentWin{
         this.pos.y = 200;//*0+Math.random(300);
 
         this.w1 = 200;
-        this.h1 = 150;
+        this.h1 = 200;
 
         this.borderWidth = globalBorderWidth;
         this.titleHeight = globalTextSize;
@@ -57,6 +57,8 @@ class VComputer extends ParentWin{
 		//признак что происходит запрос
         this.requestProcess = false;
 
+        this.vPanel = new ClientPanel(this);
+
         }//constructor
 
 
@@ -84,40 +86,38 @@ class VComputer extends ParentWin{
         }
 
 
-
+    //methos for listener response
     responseListener(){
 
         //exit if request not sending
         if (this.requestProcess==false) return;
 
-        //console.log("wait");
-
-
+        //get request for this client
         let myRequest=netSystem.requestSet.getResponseByIP(this.ip);
-
 
         //exit if not found
         if (myRequest==null) return;
 
-
-        //console.log("response is exist");
-
-
-        //verify position
+        //verify position this response
         let px = myRequest.pos.x;
         let py = myRequest.pos.y;
         if (this.coordsInRegion(px,py)==false) return;
 
 
-        console.log("response back to client");
+        //console.log("response back to client");
+        //console.log(myRequest.url);
+        //console.log(this.active);
 
         //ACTION IF FOUND RESPONSE
-        if (myRequest.url =="/clientkey") {
+        if (myRequest.url =="/clientkey" && this.active==false)  {
+
             this.clientKey = JSON.parse(myRequest.responseString).clientkey;
             console.log("getClientKey_toClient:"+this.clientKey);
+            this.active = true;
+            this.cmdStart.visible = false;
             }
 
-        //delete this request from netSystem;
+        //ANYTIME delete this request from netSystem;!!!
         netSystem.requestSet.deleteRequestByIP(this.ip);
         this.requestProcess=false;
 
@@ -159,10 +159,13 @@ class VComputer extends ParentWin{
 
 
         //drawFon
-
         if (this.active==false) image(fonClientStart.fonCnv,
                                       this.pos.x+ this.borderWidth,
                                       this.pos.y+  this.borderWidth+this.titleHeight);
+
+        //draw Process
+        if (this.active==true) this.vPanel.display();
+
 
 
         //drawUI
@@ -172,7 +175,7 @@ class VComputer extends ParentWin{
 
         //if click START
         if (this.cmdStart.eventMouseDown()) {
-            this.active=true;//mark as process
+            //this.active=true;//mark as process
             send_clientKey(this);
             }
 

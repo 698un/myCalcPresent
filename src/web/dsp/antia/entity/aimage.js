@@ -80,61 +80,26 @@ class AImage extends Region{
 			if (this.scanLine[j].complette==false) this.scanLine[j].reCalc(j,this.antia);
 
     	    xe1 = i*w2;
-			this.cnv.fill(this.scanLine[j].pixel[i]);
+			//this.cnv.fill(this.scanLine[j].pixel[i]);
+			this.cnv.fill(colorFromValue(this.scanLine[j].pixel[i]));
+
 			//this.cnv.stroke(this.scanLine[j].pixel[i]);
-			this.cnv.rect(xe1,ye1,w2,h2);
+			this.cnv.rect(xe1,ye1,w2+1,h2+1);
 			}//next i
 
 		image(this.cnv,this.pos.x,this.pos.y);
 
 		}//display
 
-
-
-		
-	//method recalc image	
-	update(){
-		
-	/*
-		for (let ye=0;ye<this.resolution;ye++){
-
-			if (this.scanLine[ye].complette==false) {
-				this.scanLine[ye].reCalc(ye,this.antia);
-				//this.rePaintCanvas();
-				break;
-				}
-			}//next ye
-*/
-		//this.rePaintCanvas();
-
-		}//update
-
-
-
-
-
-/*
-	rePaintCanvas() {
-
-		this.cnv.loadPixels();
-		for (let ye = 0; ye < this.resolution; ye++) {
-
-			if (this.scanLine[ye].complette) {
-
-				for (let xe = 0; xe < this.resolution; xe++) {
-					this.cnv.pixels[xe + ye * this.resolution] = this.scanLine[ye].pixel[xe];
-					}//next xe
-				}//if scanLine is Complette
-
-			}//nex line
-
-		this.cnv.updatePixels();
-		}//rePaintCanvas
-
-
-
- */
 	}//AImage
+
+function colorFromValue(i){
+
+	let r=sin((i/deep*6.28*3)*0.5+0.5)*255;//*2)%255;
+	let g=(sq((deep-i)/deep)*255);//%255;
+	let b=(sq((i-deep/2)/deep)*255*2)%255;
+	return color(r,g,b,255);
+	}
 	
 	
 	
@@ -178,6 +143,15 @@ class PixelLine{
 
 	getColor(rx,ry){
 
+		let cx = 0.1;
+		let cy = 0.62;
+		let w=0.01;
+		let x = cx+(rx/this.resolution-0.5)*w;
+		let y = cy+(ry/this.resolution-0.5)*w;
+
+		return ff(x,y);
+
+
 		let s=  sqrt(
 			      sq(rx-this.resolution/2)+
 			      sq(ry-this.resolution/2)
@@ -186,16 +160,37 @@ class PixelLine{
 		if (s<this.resolution*0.45) return 0;
 		return 255;
 
+
+
+
 		}//getColor
 
 
 	}//class PixelLine
 
 
-	
-	
-function colorByDeep(value){
-	
-	let currentColor=new MyColor();
 
-	}//colorByDeep	
+function ff(cx, cy) {
+
+	let x = 0.0;
+	let y = 0.0;
+	let xx = 0;
+	let yy = 0;
+	let xy = 0;
+	let i = 1;
+
+
+	while (i<deep && xx + yy <= 9) {
+		i++;
+		xy = x * y;
+		xx = x * x;
+		yy = y * y;
+		x = xx - yy + cx;
+		y = xy + xy + cy;
+	}
+
+	if (i>=deep) i=0;
+
+	return i;
+}
+

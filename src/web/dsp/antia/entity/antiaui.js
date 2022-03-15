@@ -57,7 +57,7 @@ class AntiaUI{
         this.image1.pos.x = width/2+globalBorderWidth;
 
 
-        this.image0.pos.y = this.imgSize*0.5;
+        this.image0.pos.y = globalTextSize*3;
         this.image1.pos.y = this.image0.pos.y;
 
 
@@ -94,7 +94,9 @@ class AntiaUI{
         //verify change propertyes  ANTIALIASING
         if (this.editAntia.eventChangeValue()) {
             this.image1.antia = this.editAntia.value;
-            this.image1.reset();
+
+            for (let i=0;i<this.image1.resolution;i++) this.image1.scanLine[i].complette = false;
+            //this.image1.reset();
             }
 
 

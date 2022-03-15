@@ -23,6 +23,7 @@ class Cmd {
         this.tRelease = 0;//время отпускания
         this.t0=Math.random()*1000;
         this.prevTime=0;//время предыдущей прорисовки
+        this.visible = true;
 
         this.realPos =createVector(0,0);
 
@@ -62,7 +63,7 @@ class Cmd {
 
 
     display() {
-
+        if (this.visible==false) return;
 
         this.realPos.x = this.getRealPosX();
         this.realPos.y = this.getRealPosY();
@@ -139,6 +140,8 @@ class Cmd {
 
 
    eventMouseDown(){
+
+        if (this.visible==false) return;
         //выход если мышь не нажата
         if (MW_press==false) return false;
 

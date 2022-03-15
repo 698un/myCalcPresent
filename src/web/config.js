@@ -10,3 +10,6 @@ let globalBorderWidth = 2;
 
 //время жизни клиента при простое
 let clientLifeTime = 20.0;
+
+let imageHeight = 360;
+let imageWidth = 640;
