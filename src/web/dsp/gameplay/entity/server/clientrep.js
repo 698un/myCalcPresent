@@ -20,6 +20,15 @@ class ClientRepository{
         this.client[this.clientCount-1].lastTimeConnection =tNow;
         }
 
+
+    updateLastConnect(inpClientKey){
+
+        for (let i=0;i<this.clientCount;i++){
+            if (this.client[i].clientKey==inpClientKey) this.client[i].lastTimeConnection =tNow;
+            }//next i
+
+        }//updateLastConnect
+
     deleteClient(oldClientKey){
 
         //search this client

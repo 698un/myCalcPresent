@@ -32,7 +32,7 @@ class VComputer extends ParentWin{
         this.cmdStart.pos.y = this.borderWidth+this.titleHeight;
         this.cmdStart.pos.x = this.borderWidth;
         this.cmdStart.w1 = this.w1/2;
-        this.cmdStart.h1 = this.cmdStart.textSize;
+        this.cmdStart.h1 = this.cmdStart.textSize*1.5;
 
         this.cmdStart.pos.x = this.w1/2-this.cmdStart.w1/2;
         this.cmdStart.pos.y = this.h1/2-this.titleHeight/2;
@@ -92,14 +92,21 @@ class VComputer extends ParentWin{
     //methos for listener response
     responseListener(){
 
+
+        //console.log(this.requestProcess);
+
         //exit if request not sending
         if (this.requestProcess==false) return;
 
         //get request for this client
         let myRequest=netSystem.requestSet.getResponseByIP(this.ip);
 
+
         //exit if not found
         if (myRequest==null) return;
+
+
+        //console.log(myRequest.senderIP);
 
         //verify position this response
         let px = myRequest.pos.x;
@@ -107,24 +114,97 @@ class VComputer extends ParentWin{
         if (this.coordsInRegion(px,py)==false) return;
 
 
+
+
         //console.log("response back to client");
         //console.log(myRequest.url);
         //console.log(this.active);
 
         //ACTION IF FOUND RESPONSE
+
+
+
+        //console.log(myRequest.url);
+
+
+
+        //CLIENTKEY
         if (myRequest.url =="/clientkey" && this.active==false)  {
 
             this.clientKey = JSON.parse(myRequest.responseString).clientkey;
-            console.log("getClientKey_toClient:"+this.clientKey);
+            //console.log("getClientKey_toClient:"+this.clientKey);
             this.active = true;
             this.cmdStart.visible = false;
-            this.console.addLog("ClientKey received");
+            this.console.addLog("ClientKey received:"+this.clientKey);
+
             this.calcStatus = 0;//mark as free for new task
+            netSystem.requestSet.deleteRequestByIP(this.ip);
+            this.requestProcess=false;
             }
 
+        //NEW_TASK
+        if (myRequest.url =="/newtask" && this.active==true && this.calcStatus==1)  {
+
+
+            //this.requestProcess=false;//mark as request is end
+            let jsonObject = JSON.parse(myRequest.responseString);
+            let calcFrameNum = jsonObject.frame;
+            let calcLineNum = jsonObject.line;
+
+            //INFO
+            this.vPanel.infoImage.max = imageHeight;
+            this.vPanel.infoImage.value = calcLineNum;
+
+
+            netSystem.requestSet.deleteRequestByIP(this.ip);//delete from requestSET
+            //this.requestProcess=false;
+            this.console.addLog("Calculate task["+calcFrameNum+","+calcLineNum+"]...");
+            this.console.addLog("Send resultat...");
+            this.requestProcess=false;
+            send_resultat(this,calcFrameNum,calcLineNum);
+            this.calcStatus = 2;//mark as send_resultat
+            this.requestProcess=true;
+            }
+
+
+        //resultat
+        //if (myRequest.url =="/resultat" && this.active==true && this.calcStatus==2)  {
+        if (myRequest.url.indexOf("/resultat/")!=-1 && this.active==true && this.calcStatus==2)  {
+
+            //alert("duration");
+            this.requestProcess=false;//mark as request is end
+
+            //VERIFY ERROR
+            if (myRequest.responseString.indexOf("ERROR")!=-1) {
+                    this.console.addLog(myRequest.responseString);
+
+                    netSystem.requestSet.deleteRequestByIP(this.ip);//delete from requestSET
+                    this.requestProcess=false;
+                    this.calcStatus = 0;//mark as send_resultat
+
+                    return;
+                    }
+
+            let jsonObject = JSON.parse(myRequest.responseString);
+            let calcDuration = jsonObject.duration;
+
+            netSystem.requestSet.deleteRequestByIP(this.ip);//delete from requestSET
+
+            //this.console.addLog("send_resultat_complette");
+            this.requestProcess=false;
+//            send_resultat(this,calcFrameNum,calcLineNum);
+            this.calcStatus = 0;//mark as send_resultat
+            this.requestProcess=false;
+        }
+
+
+
+
+
+
         //ANYTIME delete this request from netSystem;!!!
-        netSystem.requestSet.deleteRequestByIP(this.ip);
-        this.requestProcess=false;
+        //netSystem.requestSet.deleteRequestByIP(this.ip);
+        //this.requestProcess=false;
 
 
         }//
@@ -210,7 +290,7 @@ class VComputer extends ParentWin{
         if (this.calcStatus==0) {
             this.calcStatus=1;
             send_getNewTask(this);
-            console.log(this.calcStatus);
+           // console.log(this.calcStatus);
             }
 
 

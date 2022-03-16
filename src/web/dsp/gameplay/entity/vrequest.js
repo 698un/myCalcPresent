@@ -1,6 +1,4 @@
 
-//скорость сигнала
-let vSend = 100;
 
 class VRequest{
 
@@ -9,6 +7,7 @@ class VRequest{
         this.target = createVector(0,0);
         this.v = createVector(0,0);
         this.senderIP = "111.111.111.111";
+        this.cookie = "none";
         this.url = "";
         this.httpType = "NONE";
         this.body = "nobody";
@@ -30,7 +29,10 @@ class VRequest{
         if (this.direction=="request") {targetObject =netSystem.computerSet.getByIP(serverIP); }
 
         //Удаляем если адресат отключился
-        if (targetObject==null) this.live = false;
+        if (targetObject==null) {
+                        this.live = false;
+                        return;
+                        }
 
 
          this.target.x = targetObject.pos.x+targetObject.w1/2;

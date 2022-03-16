@@ -57,6 +57,13 @@ class AImage extends Region{
 	display(){
 
 
+		image(this.cnv,this.pos.x,this.pos.y);
+
+
+		if (this.pointInRegion(mouseX,mouseY)==false) {
+			if (frameCount % (this.antia*this.antia) != 0 && this.antia != 0) return;
+			}
+
 		//image(this.cnv,   			  this.pos.x,this.pos.y,			  this.w1,this.h1);
 
 		//номер строки которую перерисовываем
@@ -75,19 +82,14 @@ class AImage extends Region{
 
 		ye1 = h2*j;
 		this.cnv.noStroke();
+		if (this.scanLine[j].complette==false) this.scanLine[j].reCalc(j,this.antia);
 		for (let i=0;i<this.resolution;i++){
-
-			if (this.scanLine[j].complette==false) this.scanLine[j].reCalc(j,this.antia);
-
     	    xe1 = i*w2;
-			//this.cnv.fill(this.scanLine[j].pixel[i]);
 			this.cnv.fill(colorFromValue(this.scanLine[j].pixel[i]));
-
-			//this.cnv.stroke(this.scanLine[j].pixel[i]);
 			this.cnv.rect(xe1,ye1,w2+1,h2+1);
 			}//next i
 
-		image(this.cnv,this.pos.x,this.pos.y);
+		//image(this.cnv,this.pos.x,this.pos.y);
 
 		}//display
 

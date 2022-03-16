@@ -31,6 +31,10 @@ function setup() {
     createCanvas(800,500,P2D);
 	menu=new VMenu();//главное меню
     dspSetup();
+    //setupDspF1();
+    ///setupDspAntia();
+
+
     windowResized();
 
     widthPrev =  width;

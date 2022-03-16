@@ -31,6 +31,7 @@ class ClientPanel{
         this.infoImage.w1 = this.infoClient.w1;
         this.infoImage.titleBeforeValue = "image :";
         this.infoImage.titleAfterValue = "%";
+        this.infoImage.value = 0;
 
 
         this.infoVideo = new VStatus(parentObject);
@@ -49,8 +50,38 @@ class ClientPanel{
 
     display(){
 
-        this.infoClient.display();
+
+        //Draw ClientCount
+        //this.infoClient.display();
+        let regW= this.infoClient.w1;
+        let regH= this.infoClient.h1;
+        let left= this.infoClient.getRealPosX();
+        let top = this.infoClient.getRealPosY();
+
+        //backGround
+        fill(0);
+        rect(left,top,regW,regH);
+        let xe = 0;
+        let clientCount = srv_getClientCount();
+        strokeWeight(2);
+        for (let i=0;i<10;i++){
+            stroke(i*25.5);
+            strokeWeight(2);
+            xe=(tNow*i*2.5*clientCount)%regW;
+            line(left+xe,top+2,left+xe,top+regH-2);
+            }//next i
+
+        strokeWeight(0);
+        fill(255);noStroke();
+        text("clientCount: "+clientCount,left+regW/2,top+regH/2);
+
+
+
+
+
         this.infoImage.display();
+
+
         this.infoVideo.display();
 
         }//display

@@ -12,6 +12,11 @@ class RequestSet{
 
     addRequest(sender,newRequest){
 
+
+
+        newRequest.cookie = sender.clientKey;//Mark clientKey in request
+
+
         //поиск отправителя в множестве клиентов
         let senderIndex = 0;
         for(let i=0;i<netSystem.computerSet.computerCount;i++){
@@ -20,11 +25,19 @@ class RequestSet{
 
         if (netSystem.computerSet.computer[senderIndex].requestProcess==true) return;
 
+
+
         //mark sender as waiting of response
         netSystem.computerSet.computer[senderIndex].requestProcess = true;
 
         this.requestCount++;
         this.request[this.requestCount-1] = newRequest;
+
+
+
+       // console.log("Add Requesst.cookie = "+newRequest.cookie);
+
+
         }//addRequest
 
     update(){
@@ -50,6 +63,10 @@ class RequestSet{
     getResponseByIP(ipString){
 
         for (let i=0;i<this.requestCount;i++){
+
+
+           // console.log(this.request[i].senderIP);
+
             if (this.request[i].senderIP==ipString &&
                 this.request[i].direction=="response") return this.request[i];
             }//next i

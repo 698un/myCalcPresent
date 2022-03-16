@@ -19,6 +19,9 @@ class VServer extends ParentWin{
         //репозиторий ключей
         this.clientRepository = new ClientRepository();
 
+        //Image_Repository
+        this.imageRep = new ImageRepository();
+
 
         //консоль для отображения событий
         this.console = new CompConsole(this);
@@ -97,12 +100,17 @@ class VServer extends ParentWin{
              this.pos.x+this.w1/2,
              this.pos.y+this.borderWidth+this.titleHeight/2);
 
-
+        /*
         text("clientCount="+this.clientRepository.clientCount,
             this.pos.x+this.borderWidth*2,
             this.pos.y+this.borderWidth*2+this.titleHeight);
+         */
 
+
+        //show console of SERVER
 		this.console.display();
+
+		this.imageRep.display(this);
 
 
         //console.log(this.pos.x+" / "+this.pos.y);

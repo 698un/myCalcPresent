@@ -24,7 +24,16 @@ function srv_consoleMessage(message){
 	netSystem.computerSet.computer[serverIndex].console.addLog(message);
 
 	}//srv_console	
-	
+
+
+
+function srv_getClientCount(){
+    //define serverIndex
+    let serverIndex = getServerIndex();
+
+    //send message to console of server
+    return netSystem.computerSet.computer[serverIndex].clientRepository.clientCount;
+    }//srv_getClientCount
 	
 	
 //==========SYSTEM METHODS==================================

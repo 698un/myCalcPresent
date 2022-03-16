@@ -9,7 +9,15 @@ let serverIP = "127.0.0.0";
 let globalBorderWidth = 2;
 
 //время жизни клиента при простое
-let clientLifeTime = 20.0;
+let clientLifeTime = 20.0;//inSECOND
 
-let imageHeight = 360;
-let imageWidth = 640;
+//время жизни клиента при простое
+let lineLifeTime = 20000;// imMilliSecond
+
+
+
+let imageHeight = 36;
+let imageWidth = 64;
+
+//скорость сигнала
+let vSend = 100;
