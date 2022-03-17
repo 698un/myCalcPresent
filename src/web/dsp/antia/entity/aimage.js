@@ -1,5 +1,5 @@
 
-let deep = 255;
+
 
 
 class AImage extends Region{
@@ -100,6 +100,14 @@ function colorFromValue(i){
 	let r=sin((i/deep*6.28*3)*0.5+0.5)*255;//*2)%255;
 	let g=(sq((deep-i)/deep)*255);//%255;
 	let b=(sq((i-deep/2)/deep)*255*2)%255;
+
+/*
+	let r=sin((i/deep*6.28*3)*0.5+0.5)*255;//*2)%255;
+	let g=(sin((deep-i)/deep*6.28)*0.5+0.5)*255;//%255;
+	let b=(sq((i-deep/2)/deep)*255*2)%255;
+
+ */
+
 	return color(r,g,b,255);
 	}
 	
@@ -145,22 +153,16 @@ class PixelLine{
 
 	getColor(rx,ry){
 
-		let cx = 0.1;
+		let cx = 0.08;
 		let cy = 0.62;
-		let w=0.01;
+		let w=0.001;
 		let x = cx+(rx/this.resolution-0.5)*w;
 		let y = cy+(ry/this.resolution-0.5)*w;
 
 		return ff(x,y);
 
 
-		let s=  sqrt(
-			      sq(rx-this.resolution/2)+
-			      sq(ry-this.resolution/2)
-		          );
 
-		if (s<this.resolution*0.45) return 0;
-		return 255;
 
 
 
@@ -170,7 +172,7 @@ class PixelLine{
 
 	}//class PixelLine
 
-
+let deep = 1024;
 
 function ff(cx, cy) {
 

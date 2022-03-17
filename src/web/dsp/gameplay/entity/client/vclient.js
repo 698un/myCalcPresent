@@ -131,7 +131,7 @@ class VComputer extends ParentWin{
         //CLIENTKEY
         if (myRequest.url =="/clientkey" && this.active==false)  {
 
-            this.clientKey = JSON.parse(myRequest.responseString).clientkey;
+            this.clientKey = myRequest.responseString.split("=")[1];
             //console.log("getClientKey_toClient:"+this.clientKey);
             this.active = true;
             this.cmdStart.visible = false;

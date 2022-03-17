@@ -27,7 +27,7 @@ class AntiaUI{
 
         this.editResolution = new VStatus();this.editResolution.controlEnabled=true;
         this.editResolution.min = 10;
-        this.editResolution.max = 255;
+        this.editResolution.max = 512;
         this.editResolution.value = this.resolution;
         this.editResolution.backColor = color(96,96,96);
         this.editResolution.titleBeforeValue = "Resolution: ";
@@ -44,8 +44,8 @@ class AntiaUI{
 
         let imageOldSize = this.image0.w1;
 
-        this.imgSize = width/2.25;
-        if (height/2.25< this.imgSize) this.imgSize = height/2.25;
+        this.imgSize = height*0.75;//width/2.25;
+        //if (height/2.25< this.imgSize) this.imgSize = height/2.25;
 
 
         //resizeImages
@@ -116,26 +116,6 @@ class AntiaUI{
 
         }//display
 
-
-    update(){
-/*
-        for (let ye=0;ye<this.resolution;ye++){
-            if (this.image0.scanLine[ye].complette==false) {
-                this.image0.scanLine[ye].reCalc(ye,this.image0.antia);
-                break;
-                }
-            }//next line
-
-        for (let ye=0;ye<this.resolution;ye++){
-            if (this.image1.scanLine[ye].complette==false) {
-                this.image1.scanLine[ye].reCalc(ye,this.image1.antia);
-                break;
-            }
-        }//next line
-
-*/
-
-        }//Update
 
 
 }//class antiaUI

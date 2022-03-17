@@ -8,8 +8,8 @@ class ImageRepository {
         this.lastImageUpdateIndex = -1;
 
         this.cnv = createGraphics(imageWidth,imageHeight);
-        ///this.cnv.background(0);
 
+        ///this.cnv.background(0);
 
         this.imgBufferCount = 100;
         this.myImage = new Array(this.imgBufferCount);
@@ -134,6 +134,7 @@ class ImageClass {
     constructor(inpFrame) {
        this.pixLine = new Array(imageHeight);
        this.frameNum = inpFrame;
+       this.imgCnv = createGraphics(imageWidth,imageHeight);
 
        //create empty pixellines
        for (let i=0;i<imageHeight;i++) this.pixLine[i]  =  new ImagePixelLine(this.frameNum,i);
@@ -152,7 +153,7 @@ class ImageClass {
                 return this.pixLine[ye];
                 }//if empty
 
-
+/*
             if (this.pixLine[ye].complette==1 &&
                 this.pixLine[ye].BT+lineLifeTime<tMillis ) {
 
@@ -161,7 +162,7 @@ class ImageClass {
                 this.pixLine[ye].BT = tMillis;
                 return this.pixLine[ye];
                 }//if deprecate
-
+*/
 
 
 

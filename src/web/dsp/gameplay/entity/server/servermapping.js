@@ -45,7 +45,7 @@ function postClientKey(){
     let newHash = getRandomHash(10);
 
     srv_addClient(newHash);//добавление клиента
-    return '{"clientkey":"'+newHash+'"}';//возврат JSON объекта
+    return 'set-Cookie:clientkey='+newHash;//возврат JSON объекта
 
     }//
 

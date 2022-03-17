@@ -14,8 +14,6 @@ let clientLifeTime = 20.0;//inSECOND
 //время жизни клиента при простое
 let lineLifeTime = 20000;// imMilliSecond
 
-
-
 let imageHeight = 36;
 let imageWidth = 64;
 

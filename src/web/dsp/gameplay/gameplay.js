@@ -29,13 +29,23 @@ function setupDspF1(){
     cmdClientAdd.caption = "+ CLIENT";
     cmdClientAdd.pos.y = height-cmdClientAdd.h1;
 
+    //регулятор скорости запросов
+    scrollVSend = new VStatus();
+    //значения
+    scrollVSend.min = 50;    scrollVSend.max = 500;    scrollVSend.value = 100;
+    scrollVSend.titleBeforeValue = "Speed=";    scrollVSend.titleAfterValue = " px";
+    scrollVSend.controlEnabled = true;
+
+
+
+
+
+
 
     fonF1 = new FonF1();
 
 
 
-
-  //  gameplay_init = true;
     }//setupDspF1
 
 function rePositionF1(){
@@ -60,7 +70,10 @@ function drawDspF1(){
     netSystem.display();
 
     cmdClientAdd.display();
+    scrollVSend.display();
 
     if (cmdClientAdd.eventMouseDown()) netSystem.computerSet.addComputer();
+
+    if (scrollVSend.eventChangeValue()) vSend = scrollVSend.value;
 
     }//drawDspF1
