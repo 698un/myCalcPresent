@@ -35,6 +35,7 @@ function setupDspF1(){
     scrollVSend.min = 50;    scrollVSend.max = 500;    scrollVSend.value = 100;
     scrollVSend.titleBeforeValue = "Speed=";    scrollVSend.titleAfterValue = " px";
     scrollVSend.controlEnabled = true;
+    scrollVSend.w1 = menu.cmdSlide[0].pos.x-globalBorderWidth;
 
 
 
@@ -51,6 +52,8 @@ function setupDspF1(){
 function rePositionF1(){
     netSystem.reposition();
     cmdClientAdd.pos.y = height-cmdClientAdd.h1;
+
+    this.scrollVSend.w1 = menu.cmdSlide[0].pos.x;
 
     }
 

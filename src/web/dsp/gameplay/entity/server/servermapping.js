@@ -60,6 +60,9 @@ function getNewTask(inpClientKey){
     //get EmptyPixeLine from imageRepository
     let emptyPixelLine =  netSystem.computerSet.computer[serverIndex].imageRep.getNewTask(inpClientKey);
 
+    //if (duration.constructor==String ) return duration;
+    if (emptyPixelLine.constructor ==String) return emptyPixelLine;
+
     //let responseStr = JSON.strigify(emptyPixelLine);
 
     let responseStr = '{"frame":'+emptyPixelLine.frame+',"line":'+emptyPixelLine.line+'}';

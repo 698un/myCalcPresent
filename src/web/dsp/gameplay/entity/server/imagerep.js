@@ -11,7 +11,7 @@ class ImageRepository {
 
         ///this.cnv.background(0);
 
-        this.imgBufferCount = 100;
+        this.imgBufferCount = videoFrameCount;
         this.myImage = new Array(this.imgBufferCount);
 
         //create images in buffer
@@ -100,7 +100,9 @@ class ImageRepository {
             newTask = this.myImage[i].getEmptyLine(inpClientKey);
 
             if (newTask!=null) return newTask;
+
             }//next image
+        return "ERROR Video is COMPLETTE!!!"
         }//getNewTask
 
     getResultatDuration(request){
@@ -114,7 +116,8 @@ class ImageRepository {
         let lineNum = Number(strArray[3]);
 
         //перерисовка
-        this.lastImageUpdateIndex = frameNum;
+        if (frameNum>this.lastImageUpdateIndex) this.lastImageUpdateIndex = frameNum;
+
         this.canvasUpdate();
 
         srv_consoleMessage("Resulat ["+frameNum+","+lineNum+"] from "+clientKey);
@@ -202,4 +205,21 @@ class ImagePixelLine{
 
     }//class ImagePixelLine
 
+
+
+//This methos calculate pixelLine array of color(r,g,b)
+/*
+function calcPixelLine(frameNum,lineNum){
+
+    let t = frameNum*1.0/displayOpt.fps;
+    let scaleX = Math.exp(-t*1.0);
+    let deep = 512;
+    let posX = 0.39;
+    let posY = 0.3130205501;
+
+
+}//calcPixelLine
+
+
+ */
 

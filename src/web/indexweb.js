@@ -66,6 +66,8 @@ function draw() {
 	let menuEvent=menu.mouseEvent();
 	if (menuEvent=="gameplay") currentScene="gameplay";
     if (menuEvent=="antia")    currentScene="antia";
+    if (menuEvent=="pixelformat")    currentScene="pixelformat";
+
 
 
 

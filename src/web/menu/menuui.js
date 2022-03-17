@@ -24,6 +24,7 @@ class VMenu{
 		
 		this.cmdSlide[0].caption="GamePlay";
 		this.cmdSlide[1].caption="Antialiasing";
+		this.cmdSlide[2].caption ="LineFormat";
 		
 		
 		this.vMove=2*globalTextSize;//скорость выплывания
@@ -79,7 +80,7 @@ class VMenu{
 
 		if (this.cmdSlide[0].eventMouseDown()) return "gameplay";
 		if (this.cmdSlide[1].eventMouseDown()) return "antia";
-		//if (this.cmdSlide[0].eventMouseDown()) return "gameplay";
+		if (this.cmdSlide[2].eventMouseDown()) return "pixelformat";
 
 		return "none"
 		}//mouseEvent

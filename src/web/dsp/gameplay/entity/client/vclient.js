@@ -146,14 +146,31 @@ class VComputer extends ParentWin{
         if (myRequest.url =="/newtask" && this.active==true && this.calcStatus==1)  {
 
 
+            //VERIFY ERROR
+            if (myRequest.responseString.indexOf("ERROR")!=-1) {
+                this.console.addLog(myRequest.responseString);
+
+                netSystem.requestSet.deleteRequestByIP(this.ip);//delete from requestSET
+                this.requestProcess=false;
+                this.calcStatus = -1;//mark as send_resultat
+                this.active = false;
+                this.cmdStart.visible = true;
+                return;
+                }
+
+
             //this.requestProcess=false;//mark as request is end
             let jsonObject = JSON.parse(myRequest.responseString);
+
             let calcFrameNum = jsonObject.frame;
             let calcLineNum = jsonObject.line;
 
             //INFO
-            this.vPanel.infoImage.max = imageHeight;
-            this.vPanel.infoImage.value = calcLineNum;
+            this.vPanel.infoImage.max = 100;
+            this.vPanel.infoImage.value = Math.floor((calcLineNum/imageHeight)*1000)/10;
+
+            this.vPanel.infoVideo.max = 100;
+            this.vPanel.infoVideo.value = Math.floor((calcFrameNum/videoFrameCount)*1000)/10;
 
 
             netSystem.requestSet.deleteRequestByIP(this.ip);//delete from requestSET
@@ -180,8 +197,8 @@ class VComputer extends ParentWin{
 
                     netSystem.requestSet.deleteRequestByIP(this.ip);//delete from requestSET
                     this.requestProcess=false;
-                    this.calcStatus = 0;//mark as send_resultat
-
+                    this.calcStatus = -1;//mark as send_resultat
+                    this.active = false;
                     return;
                     }
 
@@ -192,7 +209,6 @@ class VComputer extends ParentWin{
 
             //this.console.addLog("send_resultat_complette");
             this.requestProcess=false;
-//            send_resultat(this,calcFrameNum,calcLineNum);
             this.calcStatus = 0;//mark as send_resultat
             this.requestProcess=false;
         }

@@ -19,3 +19,5 @@ let imageWidth = 64;
 
 //скорость сигнала
 let vSend = 100;
+
+let videoFrameCount = 10;
