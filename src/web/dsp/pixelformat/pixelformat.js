@@ -5,24 +5,18 @@
 
 let pixFormatUI=null;
 
-function setupDspAntia(){
+function setupDspPixelFormat(){
+    if (pixFormatUI==null) pixFormatUI = new PixelFormatUI();
+    }//setupDspPixelFormat
 
-    if (antiaUI==null) antiaUI = new AntiaUI();
 
-}//setupDspAntia
-
-function rePositionAntia(){
-
-    antiaUI.rePosition();
-
-}//rePosition
+function rePositionPixelFormat(){
+    pixFormatUI.rePosition();
+    }//rePosition
 
 
 
-function drawDspAntia(){
+function drawDspPixelFormat(){
     background(0);
-
-    antiaUI.display();
-
-
-}//drawDspAntia
+    pixFormatUI.display();
+    }//drawDspPixelFormat

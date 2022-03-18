@@ -3,6 +3,8 @@
 class PixelFormatUI{
 
 
+
+
     constructor(){
 
 
@@ -14,7 +16,7 @@ class PixelFormatUI{
 
 
 
-    diaplay(){
+    display(){
 
 
 
