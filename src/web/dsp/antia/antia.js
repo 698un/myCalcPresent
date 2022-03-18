@@ -11,6 +11,7 @@ let antiaUI=null;
 function setupDspAntia(){
 
     if (antiaUI==null) antiaUI = new AntiaUI();
+    rePositionAntia();
 
      }//setupDspAntia
 

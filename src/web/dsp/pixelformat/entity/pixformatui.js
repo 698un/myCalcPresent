@@ -7,6 +7,9 @@ class PixelFormatUI{
 
     constructor(){
 
+
+        this.sceneKey = getRandomHash(10);
+
         this.scrollLineSize = new VStatus();
         this.scrollLineSize.min = 10;
         this.scrollLineSize.max= 100;
@@ -44,14 +47,35 @@ class PixelFormatUI{
         this.scrollLineNum.titleBeforeValue = "LineNum=";
         this.scrollLineNum.titleAfterValue="";
 
-
-
-
-
         //For Draw pixels
         this.pixelLineRegion = new Region();
         this.pixel = new  Array(100);
         this.pixelCount =  this.scrollLineSize.value;
+
+
+        this.cmdSceneKey = new Cmd();
+        this.cmdSceneKey.caption = "NewSceneKey";
+
+
+
+
+
+        this.scrollR = new VStatus();
+        this.scrollR.titleBeforeValue = "RedValue=";
+        this.scrollR.titleAfterValue = "";
+        this.scrollR.backColor = color(0,0,0);
+        this.scrollR.textColor = color(255,255,255)
+        this.scrollR.controlEnabled = true;
+
+        this.scrollG = new VStatus();
+        this.scrollG.titleBeforeValue = "RedValue=";
+        this.scrollG.titleAfterValue = "";
+        this.scrollG.backColor = color(0,0,0);
+        this.scrollG.textColor = color(255,255,255);
+        this.scrollG.controlEnabled = true;
+
+
+
 
 
         //for reGenerate new Colors
@@ -72,7 +96,7 @@ class PixelFormatUI{
         this.scrollLineSize.pos.y = globalTextSize*3;
 
 
-        this.scrollFrameNum.w1 = this.scrollLineSize.w1*0.45;
+        this.scrollFrameNum.w1 = this.scrollLineSize.w1*0.4;
         this.scrollFrameNum.pos.x =this.scrollLineSize.pos.x;
         this.scrollFrameNum.pos.y =this.scrollLineSize.pos.y+this.scrollLineSize.h1+globalTextSize*0.5;
 
@@ -81,6 +105,11 @@ class PixelFormatUI{
         this.scrollLineNum.pos.x =this.scrollLineSize.pos.x+ this.scrollLineSize.w1 -this.scrollLineNum.w1;
         this.scrollLineNum.pos.y =this.scrollFrameNum.pos.y;
 
+
+        this.cmdSceneKey.w1 = (this.scrollLineNum.pos.x-width/2)*1.9;
+        this.cmdSceneKey.pos.x  = width/2-this.cmdSceneKey.w1/2;
+        this.cmdSceneKey.pos.y = this.scrollLineNum.pos.y;
+        this.cmdSceneKey.h1 = this.scrollLineNum.h1;
 
 
 
@@ -92,12 +121,17 @@ class PixelFormatUI{
 
         this.scrollLineSize.display();
 
+
         if (this.scrollLineSize.eventChangeValue()) {this.pixelLineReBuild();}
         if (this.scrollFrameNum.eventChangeValue()) {this.pixelLineReBuild();}
         if (this.scrollLineNum.eventChangeValue())  {this.pixelLineReBuild();}
 
+        if (this.cmdSceneKey.eventMouseDown()) this.sceneKey = getRandomHash(10);
+
         this.scrollFrameNum.display();
         this.scrollLineNum.display();
+        this.cmdSceneKey.display();
+        textAlign(LEFT,TOP);
 
 
         //отображение PixelLine
@@ -125,7 +159,7 @@ class PixelFormatUI{
 
 
 
-        text('POST /resultat/scenekey/'+this.scrollFrameNum.value+"/"+this.scrollLineNum.value,
+        text('POST /resultat/'+this.sceneKey+'/'+this.scrollFrameNum.value+"/"+this.scrollLineNum.value,
             posX,
             posY);
 
