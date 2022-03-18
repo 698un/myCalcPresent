@@ -94,6 +94,7 @@ function windowResized() {
 	
     if (currentScene=="gameplay") rePositionF1();
     if (currentScene=="antia")    rePositionAntia();
+    if (currentScene=="pixelformat")    rePositionPixelFormat();
 
     }//windowResized
 
@@ -124,6 +125,7 @@ function mouseReleased(event){
 function dspSetup(){
     if (currentScene=="gameplay") setupDspF1();
     if (currentScene=="antia") setupDspAntia();
+    if (currentScene=="pixelformat") setupDspPixelFormat();
     firstDraw = true;
     }//dspReSetup
 
@@ -139,5 +141,6 @@ function dspReDraw(){
 
     if (currentScene=="gameplay") drawDspF1();
     if (currentScene=="antia") drawDspAntia();
+    if (currentScene=="pixelformat") drawDspPixelFormat();
     }//dspReDraw
 

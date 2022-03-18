@@ -45,7 +45,7 @@ class AntiaUI{
         let imageOldSize = this.image0.w1;
 
         this.imgSize = height*0.75;//width/2.25;
-        //if (height/2.25< this.imgSize) this.imgSize = height/2.25;
+        if (this.imgSize*2.25>width) this.imgSize = width/2.25;
 
 
         //resizeImages
